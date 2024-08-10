@@ -289,4 +289,13 @@ section {
   margin-top: -10px;
   margin-bottom: 10px;
 }
+
+
+@media (min-width: 1400px) and (max-width: 1924px) {
+  .seo-section {
+    padding: 100px 30px;
+  }
+
+}
+
 </style>

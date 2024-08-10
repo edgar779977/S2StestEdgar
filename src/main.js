@@ -1,9 +1,18 @@
-import './assets/main.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+// Import styles and scripts
+import './assets/styles/app.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+// Create Vue app instance
+const app = createApp(App);
 
-import { createApp } from 'vue'
-import App from './App.vue'
+// Use plugins
+app.use(VueAxios, axios);
 
-createApp(App).mount('#app')
+// Mount the app to the DOM
+app.mount('#app');

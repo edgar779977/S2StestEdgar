@@ -14,9 +14,8 @@
 
 <script>
 
-// import FacebookIcon from "./Icons/FacebookIcon";
 export default {
-  name: "SectionThree",
+  name: "SocialNetworks",
   data: () => {
     return {
       items: [

@@ -5,9 +5,9 @@
         <div v-for="item in items" class="col-12 col-md-6 col-lg-3">
           <div class="box">
             <img class="img-fluid glob-img" :src="item.img" alt="glob">
-            <h5 class="m-0">{{item.title}}</h5>
+            <h5 class="m-0">{{ item.title }}</h5>
             <hr class="divider">
-            <p v-for="point in item.points" class="m-0">{{point}}</p>
+            <p v-for="point in item.points" class="m-0">{{ point }}</p>
           </div>
         </div>
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "SectionTwo",
+  name: "Services",
   data: () => {
     return {
       items: [
@@ -53,6 +53,7 @@ export default {
   filter: grayscale(100%);
   transition: all 0.3s ease;
 }
+
 .box {
   text-align: center;
   display: flex;
@@ -62,21 +63,26 @@ export default {
   border-radius: 24px;
   transition: all 0.3s ease;
   padding: 10px;
+
   p, .divider {
     opacity: 0;
     transition: all 0.3s ease;
   }
+
   &:hover {
     box-shadow: -41.87px 41.87px 41.87px 0px #FFFFFF1A inset;
     background-color: #2d2d2d66;
+
     p, .divider {
       opacity: 1;
     }
+
     .glob-img {
       filter: none;
     }
   }
 }
+
 .divider {
   margin: 0;
   width: 100%;

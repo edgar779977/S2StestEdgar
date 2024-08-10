@@ -132,31 +132,7 @@ export default {
         this.errors = {};  // Clear previous errors
         this.successMessage = '';  // Clear previous success message
 
-        try {
-          const response = await this.axios.post('https://test-admin.s2s.am/api/sendMessage', this.form, {
-            auth: {
-              username: 's2s_test_exercise',
-              password: JSON.stringify('xE1727}IHxiO')
-            },
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-
-          if (response.data.status === 200) {
-            this.successMessage = response.data.message;
-          } else {
-            this.errors = response.data.errors;
-            console.error('Server responded with:', response.data);
-          }
-        } catch (error) {
-          if (error.response && error.response.data) {
-            this.errors = error.response.data.errors;
-            console.error('Error from server:', error.response.data.message);
-          } else {
-            console.error('An unexpected error occurred:', error);
-          }
-        }
+        console.log('send message')
         // Reset submitted state after successful submission
         this.submitted = false;
       }
@@ -292,6 +268,15 @@ section {
   &::placeholder {
     color: white;
   }
+}
+
+.custom-addon {
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 201, 201, 1) !important;
+  color: white;
+  display: inline;
 }
 
 .has-error .custom-input {

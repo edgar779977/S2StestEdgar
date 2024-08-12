@@ -96,6 +96,7 @@ import WhatsApp from '../components/Icons/social/WhatsApp.vue';
 import Viber from '../components/Icons/social/Viber.vue';
 import Telegram from '../components/Icons/social/Telegram.vue';
 import Messenger from '../components/Icons/social/Messenger.vue';
+import axios from 'axios';
 
 export default {
   name: 'SEOSection',
@@ -108,7 +109,7 @@ export default {
     WhatsApp,
     Viber,
     Telegram,
-    Messenger,
+    Messenger
   },
   data() {
     return {
@@ -120,7 +121,6 @@ export default {
         message: ''
       },
       errors: {},
-      submitted: false
     };
   },
   methods: {
@@ -128,13 +128,7 @@ export default {
       this.submitted = true;
       this.errors = this.validateForm();
       if (Object.keys(this.errors).length === 0) {
-        // Handle form submission
-        this.errors = {};  // Clear previous errors
-        this.successMessage = '';  // Clear previous success message
-
         console.log('send message')
-        // Reset submitted state after successful submission
-        this.submitted = false;
       }
     },
     validateForm() {

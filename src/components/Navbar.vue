@@ -27,7 +27,7 @@
             <a class="nav-link disabled" href="#">Կապ</a>
           </li>
         </ul>
-        <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center gap-4 nav-right-btn-group">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               ՀԱՅ
@@ -119,6 +119,10 @@ export default {
 @media (max-width: 991px) {
   .custom-navbar {
     padding: 15px 30px 18px;
+  }
+
+  .nav-right-btn-group{
+    justify-content: right;
   }
 }
 

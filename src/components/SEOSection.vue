@@ -63,17 +63,21 @@
                 <div class="d-flex justify-content-between">
                   <button class="btn btn-light contact-us-btn" type="submit">Ստանալ Առաջարկ</button>
                   <div class="d-flex gap-3 social-buttons">
-                    <a href="https://wa.me/your-phone-number" class="social-btn" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                      <WhatsApp />
+                    <a href="https://wa.me/your-phone-number" class="social-btn" aria-label="WhatsApp" target="_blank"
+                       rel="noopener noreferrer">
+                      <WhatsApp/>
                     </a>
-                    <a href="viber://chat?number=your-phone-number" class="social-btn" aria-label="Viber" target="_blank" rel="noopener noreferrer">
-                      <Viber />
+                    <a href="viber://chat?number=your-phone-number" class="social-btn" aria-label="Viber"
+                       target="_blank" rel="noopener noreferrer">
+                      <Viber/>
                     </a>
-                    <a href="https://t.me/your-telegram-username" class="social-btn" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                      <Telegram />
+                    <a href="https://t.me/your-telegram-username" class="social-btn" aria-label="Telegram"
+                       target="_blank" rel="noopener noreferrer">
+                      <Telegram/>
                     </a>
-                    <a href="https://m.me/your-facebook-username" class="social-btn" aria-label="Messenger" target="_blank" rel="noopener noreferrer">
-                      <Messenger />
+                    <a href="https://m.me/your-facebook-username" class="social-btn" aria-label="Messenger"
+                       target="_blank" rel="noopener noreferrer">
+                      <Messenger/>
                     </a>
                   </div>
                 </div>
@@ -121,43 +125,56 @@ export default {
         message: ''
       },
       errors: {},
+      submitted: false,
     };
   },
   methods: {
     async handleSubmit() {
       this.submitted = true;
       this.errors = this.validateForm();
+
       if (Object.keys(this.errors).length === 0) {
-        console.log('send message')
+        this.errors = {};
+        this.successMessage = '';
+console.log('send Message')
       }
     },
+
+    handleResponseErrors(serverErrors) {
+      if (serverErrors) {
+        // Merge server-side errors with client-side validation errors
+        this.errors = {...this.errors, ...serverErrors};
+      }
+    },
+
     validateForm() {
       const errors = {};
 
       if (!this.form.name) {
-        errors.name = 'Անունը պարտադիր է';
+        errors.name = 'Name is required';
       }
 
       if (!this.form.company) {
-        errors.company = 'Կազմակերպությունը պարտադիր է';
+        errors.company = 'Company is required';
       }
 
       if (!this.form.email) {
-        errors.email = 'Էլ. հասցեն պարտադիր է';
+        errors.email = 'Email is required';
       } else if (!this.validEmail(this.form.email)) {
-        errors.email = 'Անվավեր էլ. հասցե';
+        errors.email = 'Invalid email address';
       }
 
       if (!this.form.phone) {
-        errors.phone = 'Հեռախոսահամարը պարտադիր է';
+        errors.phone = 'Phone number is required';
       }
 
       if (!this.form.message) {
-        errors.message = 'Հաղորդագրությունը պարտադիր է';
+        errors.message = 'Message is required';
       }
 
       return errors;
     },
+
     validEmail(email) {
       const re = /\S+@\S+\.\S+/;
       return re.test(email);
@@ -265,7 +282,7 @@ section {
 
   &:focus {
     background-color: transparent !important;
-    color:white;
+    color: white;
     box-shadow: none !important;
     outline: none; /* Remove default focus outline if needed */
   }

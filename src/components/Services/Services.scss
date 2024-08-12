@@ -1,0 +1,41 @@
+.glob-img {
+  max-width: 200px;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  border-radius: 24px;
+  transition: all 0.3s ease;
+  padding: 10px;
+
+  p, .divider {
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    box-shadow: -41.87px 41.87px 41.87px 0px #FFFFFF1A inset;
+    background-color: #2d2d2d66;
+
+    p, .divider {
+      opacity: 1;
+    }
+
+    .glob-img {
+      filter: none;
+    }
+  }
+}
+
+.divider {
+  margin: 0;
+  width: 100%;
+  color: #41B663;
+  border-width: 2px;
+}

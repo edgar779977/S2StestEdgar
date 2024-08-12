@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import SearchIcon from "./Icons/SearchIcon.vue";
+import SearchIcon from "../Icons/SearchIcon.vue";
 
 export default {
   name: 'Navbar',
@@ -60,97 +60,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.custom-navbar {
-  background-color: #000000;
-  color: #FFFFFF;
-  padding: 21px 120px 23px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+<style lang="scss" scoped>
 
-.logo {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 56px;
-  color: #FFFFFF;
-  text-decoration: none;
-}
+@import "./Navbar.scss";
 
-.navbar-toggler {
-  margin-left: auto;
-}
-
-.nav-item .nav-link {
-  text-decoration: none;
-}
-
-.nav-item .dropdown-menu .dropdown-item {
-  text-decoration: none;
-}
-
-.d-flex {
-  gap: 48px;
-}
-
-.d-flex > * {
-  display: flex;
-  align-items: center;
-}
-
-.nav-link {
-  font-size: 16px;
-}
-
-@media (max-width: 1300px) {
-  .nav-link {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .custom-navbar {
-    padding: 15px 30px 18px;
-  }
-}
-
-@media (max-width: 991px) {
-  .custom-navbar {
-    padding: 15px 30px 18px;
-  }
-
-  .nav-right-btn-group{
-    justify-content: right;
-  }
-}
-
-.custom-navbar .navbar-brand {
-  color: #FFFFFF;
-  text-decoration: none;
-}
-
-.custom-navbar .navbar-nav .nav-link {
-  color: #FFFFFF;
-}
-
-.custom-navbar .navbar-nav .nav-link.active {
-  color: #00A2FF;
-}
-
-.navbar-toggler-icon {
-  filter: invert(1);
-}
-
-@media (max-width: 991px) {
-  .navbar-nav {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .navbar-nav .nav-item {
-    margin-bottom: 10px;
-  }
-}
 </style>

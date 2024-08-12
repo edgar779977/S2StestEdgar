@@ -91,15 +91,15 @@
 </template>
 
 <script>
-import User from '../components/Icons/User.vue';
-import Building from '../components/Icons/Building.vue';
-import Message from '../components/Icons/Message.vue';
-import Phone from '../components/Icons/Phone.vue';
-import Chat from '../components/Icons/Chat.vue';
-import WhatsApp from '../components/Icons/social/WhatsApp.vue';
-import Viber from '../components/Icons/social/Viber.vue';
-import Telegram from '../components/Icons/social/Telegram.vue';
-import Messenger from '../components/Icons/social/Messenger.vue';
+import User from '../Icons/User.vue';
+import Building from '../Icons/Building.vue';
+import Message from '../Icons/Message.vue';
+import Phone from '../Icons/Phone.vue';
+import Chat from '../Icons/Chat.vue';
+import WhatsApp from '../Icons/Social/WhatsApp.vue';
+import Viber from '../Icons/Social/Viber.vue';
+import Telegram from '../Icons/Social/Telegram.vue';
+import Messenger from '../Icons/Social/Messenger.vue';
 import axios from 'axios';
 
 export default {
@@ -236,125 +236,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section {
-  height: 100%;
-  background-color: #02030B;
-}
 
-.seo-section {
-  padding: 100px 0;
-}
-
-.social-btn {
-  background: transparent !important;
-  padding: 0;
-}
-
-.centered-row {
-  background-image: url('../assets/images/footerbg.png');
-  background-repeat: no-repeat;
-  background-size: 300px;
-  background-position: center left;
-}
-
-.seo-content {
-  padding-top: 136px;
-
-  p {
-    font-weight: 400;
-  }
-
-  .seo-title {
-    font-size: 36px;
-    line-height: 1.4;
-    color: #00C9C9;
-    letter-spacing: 1.28px;
-  }
-
-  .seo-subtitle {
-    font-size: 24px;
-    line-height: 33.6px;
-    letter-spacing: 0.14em;
-    color: #41B663;
-  }
-
-  .seo-description {
-    max-width: 689px !important;
-    font-family: 'GHEA Grapalat', sans-serif;
-    font-size: 18px;
-    line-height: 32.76px;
-    color: #fff;
-  }
-}
-
-.offer-form {
-  border-radius: 24px 0 24px 24px;
-  background-image: url('../assets/images/footerbg1.png');
-  background-size: cover;
-
-  h4 {
-    color: #fff;
-  }
-}
-
-@media (max-width: 992px) {
-  .offer-form {
-    margin-top: unset;
-  }
-}
-
-.form-wrapper {
-  border: 4px solid #00C9C9;
-  border-radius: 8px;
-  padding: 36px;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 1);
-  color: white;
-}
-
-.custom-input {
-  background-color: transparent !important;
-  color: white;
-  border-radius: 0 !important;
-  border: none !important;
-  border-bottom: 1px solid rgba(0, 201, 201, 1) !important;
-  box-shadow: none;
-
-  &::placeholder {
-    color: white;
-  }
-
-  &:focus {
-    background-color: transparent !important;
-    color: white;
-    box-shadow: none !important;
-    outline: none; /* Remove default focus outline if needed */
-  }
-}
-
-.custom-addon {
-  background-color: transparent;
-  border-radius: 0;
-  border: none;
-  border-bottom: 1px solid rgba(0, 201, 201, 1) !important;
-  color: white;
-  display: inline;
-}
-
-.has-error .custom-input {
-  border-color: red !important;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.875em;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-@media (min-width: 1400px) and (max-width: 1924px) {
-  .seo-section {
-    padding: 100px 30px;
-  }
-}
+@import "./SEOSection.scss";
 
 </style>

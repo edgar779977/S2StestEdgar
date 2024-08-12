@@ -135,8 +135,51 @@ export default {
 
       if (Object.keys(this.errors).length === 0) {
         this.errors = {};
-        this.successMessage = '';
-console.log('send Message')
+        const session_url = 'https://test-admin.s2s.am/api/sendMessage';
+        const username = 's2s_test_exercise';
+        const password = 'xE1727}IHxiO';
+        const credentials = btoa(`${username}:${password}`);
+        const basicAuth = `Basic ${credentials}`;
+
+        try {
+          const response = await axios.post(session_url, this.form, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': basicAuth,
+            },
+          });
+
+          if (response.data.status === 200) {
+            this.$swal.fire({
+              title: 'Success!',
+              text: response.data.message,
+              icon: 'success',
+              confirmButtonText: 'Close',
+            });
+
+            // Reset form fields after successful submission
+            this.form = {
+              name: '',
+              company: '',
+              email: '',
+              phone: '',
+              message: ''
+            };
+            this.submitted = false;
+
+          } else if (response.data.status === 500) {
+            this.handleResponseErrors(response.data.errors);
+
+            this.$swal.fire({
+              title: 'Error!',
+              text: response.data.message,
+              icon: 'error',
+              confirmButtonText: 'Close',
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
 

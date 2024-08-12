@@ -42,14 +42,14 @@
                 </div>
                 <span v-if="submitted && errors.email" class="error-message">{{ errors.email }}</span>
 
-                <div class="input-group flex-nowrap" :class="{ 'has-error': submitted && errors.phoneNumber }">
+                <div class="input-group flex-nowrap" :class="{ 'has-error': submitted && errors.phone }">
                   <span class="input-group-text custom-addon">
                     <Phone/>
                   </span>
-                  <input class="form-control custom-input" v-model="form.phoneNumber" type="text"
+                  <input class="form-control custom-input" v-model="form.phone" type="text"
                          placeholder="Հեռախոսահամար*"/>
                 </div>
-                <span v-if="submitted && errors.phoneNumber" class="error-message">{{ errors.phoneNumber }}</span>
+                <span v-if="submitted && errors.phone" class="error-message">{{ errors.phone }}</span>
 
                 <div class="input-group flex-nowrap" :class="{ 'has-error': submitted && errors.message }">
                   <span class="input-group-text custom-addon">
@@ -62,19 +62,19 @@
 
                 <div class="d-flex justify-content-between">
                   <button class="btn btn-light contact-us-btn" type="submit">Ստանալ Առաջարկ</button>
-                  <div class="d-flex gap-3">
-                    <button class="social-btn" type="button">
-                      <WhatsApp/>
-                    </button>
-                    <button class="social-btn" type="button">
-                      <Viber/>
-                    </button>
-                    <button class="social-btn" type="button">
-                      <Telegram/>
-                    </button>
-                    <button class="social-btn" type="button">
-                      <Messenger/>
-                    </button>
+                  <div class="d-flex gap-3 social-buttons">
+                    <a href="https://wa.me/your-phone-number" class="social-btn" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                      <WhatsApp />
+                    </a>
+                    <a href="viber://chat?number=your-phone-number" class="social-btn" aria-label="Viber" target="_blank" rel="noopener noreferrer">
+                      <Viber />
+                    </a>
+                    <a href="https://t.me/your-telegram-username" class="social-btn" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                      <Telegram />
+                    </a>
+                    <a href="https://m.me/your-facebook-username" class="social-btn" aria-label="Messenger" target="_blank" rel="noopener noreferrer">
+                      <Messenger />
+                    </a>
                   </div>
                 </div>
               </form>
@@ -116,7 +116,7 @@ export default {
         name: '',
         company: '',
         email: '',
-        phoneNumber: '',
+        phone: '',
         message: ''
       },
       errors: {},
@@ -154,8 +154,8 @@ export default {
         errors.email = 'Անվավեր էլ. հասցե';
       }
 
-      if (!this.form.phoneNumber) {
-        errors.phoneNumber = 'Հեռախոսահամարը պարտադիր է';
+      if (!this.form.phone) {
+        errors.phone = 'Հեռախոսահամարը պարտադիր է';
       }
 
       if (!this.form.message) {
@@ -258,7 +258,7 @@ section {
 }
 
 .custom-input {
-  background-color: transparent;
+  background-color: transparent !important;
   color: white;
   border-radius: 0 !important;
   border: none !important;
@@ -267,6 +267,13 @@ section {
 
   &::placeholder {
     color: white;
+  }
+
+  &:focus {
+    background-color: transparent !important;
+    color:white;
+    box-shadow: none !important;
+    outline: none; /* Remove default focus outline if needed */
   }
 }
 
@@ -290,12 +297,10 @@ section {
   margin-bottom: 10px;
 }
 
-
 @media (min-width: 1400px) and (max-width: 1924px) {
   .seo-section {
     padding: 100px 30px;
   }
-
 }
 
 </style>

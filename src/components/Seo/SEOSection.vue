@@ -38,7 +38,7 @@
                   <span class="input-group-text custom-addon">
                     <Message/>
                   </span>
-                  <input class="form-control custom-input" v-model="form.email" type="text" placeholder="Էլ. հասցե*"/>
+                  <input class="form-control custom-input" v-model="form.email" type="email" placeholder="Էլ. հասցե*"/>
                 </div>
                 <span v-if="submitted && errors.email" class="error-message">{{ errors.email }}</span>
 
@@ -46,7 +46,7 @@
                   <span class="input-group-text custom-addon">
                     <Phone/>
                   </span>
-                  <input class="form-control custom-input" v-model="form.phone" type="text"
+                  <input class="form-control custom-input" v-model="form.phone" type="tel"
                          placeholder="Հեռախոսահամար*"/>
                 </div>
                 <span v-if="submitted && errors.phone" class="error-message">{{ errors.phone }}</span>
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import {defineComponent, reactive, ref, watch} from 'vue';
 import User from '../Icons/User.vue';
 import Building from '../Icons/Building.vue';
 import Message from '../Icons/Message.vue';
@@ -101,8 +102,9 @@ import Viber from '../Icons/Social/Viber.vue';
 import Telegram from '../Icons/Social/Telegram.vue';
 import Messenger from '../Icons/Social/Messenger.vue';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
-export default {
+export default defineComponent({
   name: 'SEOSection',
   components: {
     User,
@@ -115,26 +117,71 @@ export default {
     Telegram,
     Messenger
   },
-  data() {
-    return {
-      form: {
-        name: '',
-        company: '',
-        email: '',
-        phone: '',
-        message: ''
-      },
-      errors: {},
-      submitted: false,
-    };
-  },
-  methods: {
-    async handleSubmit() {
-      this.submitted = true;
-      this.errors = this.validateForm();
+  setup() {
+    const form = reactive({
+      name: '',
+      company: '',
+      email: '',
+      phone: '',
+      message: ''
+    });
 
-      if (Object.keys(this.errors).length === 0) {
-        this.errors = {};
+    const errors = reactive({});
+    const submitted = ref(false);
+
+    const validateForm = () => {
+      const errorsObj = {};
+
+      if (!form.name) {
+        errorsObj.name = 'Name is required';
+      }
+
+      if (!form.company) {
+        errorsObj.company = 'Company is required';
+      }
+
+      if (!form.email) {
+        errorsObj.email = 'Email is required';
+      } else if (!validEmail(form.email)) {
+        errorsObj.email = 'Invalid email address';
+      }
+
+      if (!form.phone) {
+        errorsObj.phone = 'Phone number is required';
+      } else if (!validPhone(form.phone)) {
+        errorsObj.phone = 'Phone number must contain only digits';
+      }
+
+      if (!form.message) {
+        errorsObj.message = 'Message is required';
+      }
+
+      return errorsObj;
+    };
+
+    const validPhone = (phone) => {
+      const re = /^\d+$/; // Regular expression to match only digits
+      return re.test(phone);
+    };
+
+    const validEmail = (email) => {
+      const re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    };
+
+    const handleResponseErrors = (serverErrors) => {
+      if (serverErrors) {
+        // Merge server-side errors with client-side validation errors
+        Object.assign(errors, serverErrors);
+      }
+    };
+
+    const handleSubmit = async () => {
+      submitted.value = true;
+      Object.assign(errors, validateForm());
+
+      if (Object.keys(errors).length === 0) {
+        Object.keys(errors).forEach(key => delete errors[key]);
         const session_url = 'https://test-admin.s2s.am/api/sendMessage';
         const username = 's2s_test_exercise';
         const password = 'xE1727}IHxiO';
@@ -142,7 +189,7 @@ export default {
         const basicAuth = `Basic ${credentials}`;
 
         try {
-          const response = await axios.post(session_url, this.form, {
+          const response = await axios.post(session_url, form, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': basicAuth,
@@ -150,7 +197,7 @@ export default {
           });
 
           if (response.data.status === 200) {
-            this.$swal.fire({
+            await Swal.fire({
               title: 'Success!',
               text: response.data.message,
               icon: 'success',
@@ -158,19 +205,13 @@ export default {
             });
 
             // Reset form fields after successful submission
-            this.form = {
-              name: '',
-              company: '',
-              email: '',
-              phone: '',
-              message: ''
-            };
-            this.submitted = false;
+            Object.keys(form).forEach(key => form[key] = '');
+            submitted.value = false;
 
           } else if (response.data.status === 500) {
-            this.handleResponseErrors(response.data.errors);
+            handleResponseErrors(response.data.errors);
 
-            this.$swal.fire({
+            await Swal.fire({
               title: 'Error!',
               text: response.data.message,
               icon: 'error',
@@ -181,62 +222,43 @@ export default {
           console.log(error);
         }
       }
-    },
+    };
 
-    handleResponseErrors(serverErrors) {
-      if (serverErrors) {
-        // Merge server-side errors with client-side validation errors
-        this.errors = {...this.errors, ...serverErrors};
+// Function to clear errors for a specific field
+    const clearError = (field) => {
+      if (errors[field]) {
+        delete errors[field];
       }
-    },
+    };
 
-    validateForm() {
-      const errors = {};
-
-      if (!this.form.name) {
-        errors.name = 'Name is required';
+// Function to handle phone number validation
+    const validatePhone = (phone) => {
+      if (!validPhone(phone)) {
+        errors.phone = 'Phone number must contain only digits';
+      } else {
+        delete errors.phone;
       }
+    };
 
-      if (!this.form.company) {
-        errors.company = 'Company is required';
-      }
+// Watch for changes in form inputs
+    watch(() => form.name, () => clearError('name'));
+    watch(() => form.company, () => clearError('company'));
+    watch(() => form.email, () => clearError('email'));
+    watch(() => form.phone, (newVal) => validatePhone(newVal));
+    watch(() => form.message, () => clearError('message'));
 
-      if (!this.form.email) {
-        errors.email = 'Email is required';
-      } else if (!this.validEmail(this.form.email)) {
-        errors.email = 'Invalid email address';
-      }
-
-      if (!this.form.phone) {
-        errors.phone = 'Phone number is required';
-      }
-
-      if (!this.form.message) {
-        errors.message = 'Message is required';
-      }
-
-      return errors;
-    },
-
-    validEmail(email) {
-      const re = /\S+@\S+\.\S+/;
-      return re.test(email);
-    }
-  },
-  watch: {
-    form: {
-      handler() {
-        // Re-validate the form when any input changes
-        this.errors = this.validateForm();
-      },
-      deep: true
-    }
+    return {
+      form,
+      errors,
+      submitted,
+      handleSubmit,
+      validEmail,
+      validPhone
+    };
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
-
 @import "./SEOSection.scss";
-
 </style>

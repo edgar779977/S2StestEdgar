@@ -4,7 +4,7 @@
     <MarketingAgencySection/>
     <Services/>
     <SocialNetworks/>
-    <SEOSection/>
+    <SeoSection/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import Navbar from './components/Navbar/Navbar.vue';
 import MarketingAgencySection from './components/Marketing/MarketingAgencySection.vue';
 import Services from './components/Services/Services.vue';
 import SocialNetworks from './components/SocialNetworks/SocialNetworks.vue';
-import SEOSection from './components/Seo/SEOSection.vue';
+import SeoSection from './components/Seo/SeoSection.vue';
 
 export default {
   components: {
@@ -21,7 +21,7 @@ export default {
     MarketingAgencySection,
     Services,
     SocialNetworks,
-    SEOSection
+    SeoSection
   },
 };
 </script>

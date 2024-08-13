@@ -260,5 +260,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./SEOSection.scss";
+@import "./SeoSection.scss";
 </style>
